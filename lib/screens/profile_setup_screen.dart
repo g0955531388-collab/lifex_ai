@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../core/app_constants.dart';
 import '../features/auth/auth_controller.dart';
 import '../features/profile/multi_profile_engine.dart';
 import 'home_screen.dart';
@@ -15,7 +17,7 @@ class ProfileSetupScreen extends StatefulWidget {
 class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   final _name = TextEditingController();
   final _alias = TextEditingController();
-  bool _photoMarked = false;
+  String? _photoPath;
   String? _error;
 
   @override
@@ -23,6 +25,40 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     _name.dispose();
     _alias.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickPhoto() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('إذن الصورة الشخصية'),
+        content: const Text(
+          'الصورة إلزامية للسيرة. تُستخدم للرعاية على هذا الجهاز. ليست مراقبة للآخرين.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('لاحقاً'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('موافق والتقاط'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    try {
+      final file = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (file != null) {
+        setState(() => _photoPath = file.path);
+      }
+    } catch (_) {
+      final file = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (file != null) {
+        setState(() => _photoPath = file.path);
+      }
+    }
   }
 
   @override
@@ -43,16 +79,17 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             controller: _alias,
             decoration: const InputDecoration(labelText: 'اسم مستعار للعامة (اختياري)'),
           ),
-          SwitchListTile(
-            title: const Text('أضفت صورة شخصية (إلزامية)'),
-            subtitle: const Text('في الإطلاق تُلتقط من الكاميرا بعد شرح الإذن.'),
-            value: _photoMarked,
-            onChanged: (v) => setState(() => _photoMarked = v),
+          const SizedBox(height: 8),
+          OutlinedButton(
+            onPressed: _pickPhoto,
+            child: Text(
+              _photoPath == null ? 'التقاط الصورة الإلزامية' : 'تم حفظ مسار الصورة',
+            ),
           ),
           if (_error != null) Text(_error!, style: const TextStyle(color: Colors.red)),
           FilledButton(
             onPressed: () async {
-              if (_name.text.trim().isEmpty || !_photoMarked) {
+              if (_name.text.trim().isEmpty || _photoPath == null) {
                 setState(() => _error = 'الاسم الحقيقي والصورة إلزاميان.');
                 return;
               }
@@ -65,7 +102,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
               );
               await profiles.update((p) {
                 p.alias = _alias.text.trim();
-                p.photoAssetPath = 'local://portrait';
+                p.photoAssetPath = _photoPath;
               });
               if (!context.mounted) return;
               Navigator.of(context).pushReplacement(
@@ -74,6 +111,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             },
             child: const Text('حفظ ودخول اللوحة'),
           ),
+          const SizedBox(height: 12),
+          const Text(AppConstants.medicalDisclaimer),
         ],
       ),
     );

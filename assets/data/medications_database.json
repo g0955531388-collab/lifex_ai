@@ -6,6 +6,8 @@
   "medications": [
     {"id": "m001", "nameAr": "باراسيتامول", "nameEn": "Paracetamol", "requiresPrescription": false},
     {"id": "m002", "nameAr": "إيبوبروفين", "nameEn": "Ibuprofen", "requiresPrescription": false},
-    {"id": "m003", "nameAr": "ميتفورمين", "nameEn": "Metformin", "requiresPrescription": true}
+    {"id": "m003", "nameAr": "ميتفورمين", "nameEn": "Metformin", "requiresPrescription": true},
+    {"id": "m004", "nameAr": "أملوديبين", "nameEn": "Amlodipine", "requiresPrescription": true},
+    {"id": "m005", "nameAr": "سالبوتامول", "nameEn": "Salbutamol", "requiresPrescription": true}
   ]
 }

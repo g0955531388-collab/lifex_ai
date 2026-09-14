@@ -6,14 +6,27 @@ import '../core/trial_manager.dart';
 import '../features/profile/multi_profile_engine.dart';
 import '../features/units/unit_catalog.dart';
 import '../widgets/branding.dart';
+import 'ai_screen.dart';
 import 'blood_screen.dart';
+import 'camera_screen.dart';
+import 'chat_screen.dart';
 import 'cv_screen.dart';
+import 'dental_screen.dart';
 import 'doctor_public_screen.dart';
+import 'donate_screen.dart';
 import 'emergency_screen.dart';
+import 'family_screen.dart';
+import 'hospital_screen.dart';
+import 'meds_screen.dart';
+import 'order_unit_screens.dart';
+import 'pharmacy_screen.dart';
 import 'questionnaire_screen.dart';
+import 'radar_screen.dart';
 import 'reports_screen.dart';
+import 'settings_screen.dart';
 import 'unit_screen.dart';
 import 'wallet_screen.dart';
+import 'women_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,12 +34,25 @@ class HomeScreen extends StatelessWidget {
   void _open(BuildContext context, CareUnit unit) {
     final Widget page = switch (unit.id) {
       'cv' => const CvScreen(),
+      'meds' => const MedsScreen(),
       'survey' => const QuestionnaireScreen(),
       'doctors' => const DoctorPublicScreen(),
+      'labs' => const LabScreen(),
+      'imaging' => const ImagingScreen(),
+      'pharmacy' => const PharmacyScreen(),
+      'hospital' => const HospitalScreen(),
+      'dental' => const DentalScreen(),
       'blood' => const BloodScreen(),
+      'donate' => const DonateScreen(),
+      'women' => const WomenScreen(),
       'access' => const SpecialNeedsScreen(),
+      'camera' => const CameraScreen(),
+      'radar' => const RadarScreen(),
       'wallet' => const WalletScreen(),
       'reports' => const ReportsScreen(),
+      'ai' => const AiScreen(),
+      'chat' => const ChatScreen(),
+      'family' => const FamilyScreen(),
       _ => UnitScreen(unit: unit),
     };
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => page));
@@ -81,6 +107,17 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 'أهلاً ${profile?.displayNameForCare() ?? ''}',
                 style: const TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+            const Material(
+              color: Color(0xFF12355F),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  'شريط إرشاد: حلّل ووجّه إلى مختص. لا تشخيص قاطع ولا وصفة من Lifex. الإعلانات على الصفحات العامة فقط.',
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             Expanded(

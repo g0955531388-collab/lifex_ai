@@ -5,6 +5,8 @@
   },
   "tests": [
     {"id": "t001", "nameAr": "تعداد الدم الكامل", "nameEn": "CBC"},
-    {"id": "t002", "nameAr": "سكر الدم الصائم", "nameEn": "Fasting glucose"}
+    {"id": "t002", "nameAr": "سكر الدم الصائم", "nameEn": "Fasting glucose"},
+    {"id": "t003", "nameAr": "الكوليسترول", "nameEn": "Cholesterol"},
+    {"id": "t004", "nameAr": "وظائف الكلى", "nameEn": "Renal function"}
   ]
 }

@@ -5,7 +5,9 @@
   },
   "symptoms": [
     {"id": "s001", "nameAr": "صداع", "urgencyDefault": "low"},
+    {"id": "s002", "nameAr": "حمى", "urgencyDefault": "medium"},
     {"id": "s006", "nameAr": "ضيق تنفس", "urgencyDefault": "high"},
-    {"id": "s008", "nameAr": "ألم في الصدر", "urgencyDefault": "critical"}
+    {"id": "s008", "nameAr": "ألم في الصدر", "urgencyDefault": "critical"},
+    {"id": "s009", "nameAr": "دوخة", "urgencyDefault": "medium"}
   ]
 }

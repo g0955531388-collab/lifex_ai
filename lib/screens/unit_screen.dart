@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/app_constants.dart';
+import '../core/local_knowledge.dart';
 import '../features/profile/multi_profile_engine.dart';
 import '../features/units/unit_catalog.dart';
 
@@ -45,9 +46,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hits = kCareUnits
-        .where((u) => u.titleAr.contains(q) || u.subtitleAr.contains(q) || q.isEmpty)
+    final knowledge = context.read<LocalKnowledge>();
+    final unitHits = kCareUnits
+        .where(
+          (u) =>
+              q.isEmpty || u.titleAr.contains(q) || u.subtitleAr.contains(q),
+        )
         .toList();
+    final knowledgeHits = knowledge.search(q);
     return Scaffold(
       appBar: AppBar(title: const Text('بحث صحي داخل الشبكة')),
       body: Column(
@@ -55,15 +61,24 @@ class _SearchScreenState extends State<SearchScreen> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              decoration: const InputDecoration(labelText: 'ابحث في وحدات Lifex'),
+              decoration: const InputDecoration(
+                labelText: 'ابحث في الوحدات والمرجع المحلي',
+              ),
               onChanged: (v) => setState(() => q = v.trim()),
             ),
           ),
           Expanded(
             child: ListView(
               children: [
-                for (final u in hits)
+                for (final u in unitHits)
                   ListTile(title: Text(u.titleAr), subtitle: Text(u.subtitleAr)),
+                if (knowledgeHits.isNotEmpty)
+                  const ListTile(title: Text('مرجع محلي (توعية لا تشخيص)')),
+                for (final hit in knowledgeHits)
+                  ListTile(
+                    title: Text('${hit.kindAr}: ${hit.titleAr}'),
+                    subtitle: Text(hit.detailAr),
+                  ),
               ],
             ),
           ),
@@ -87,9 +102,17 @@ class SpecialNeedsScreen extends StatelessWidget {
         children: [
           const Text(
             'الاعتماد بعد السيرة وبطاقة الإعاقة أو المرض المزمن في بلدك. '
-            'رسوم Lifex تصبح صفراً. الخصم لدى الوحدة اختياري ولا يُعرض مسبقاً.',
+            'رسوم Lifex تصبح صفراً. الخصم لدى الوحدة اختياري ولا يُعرض مسبقاً. '
+            'الرادار الضوئي مجاني دائماً بعد الاعتماد.',
           ),
           const SizedBox(height: 12),
+          SwitchListTile(
+            title: const Text('أرفقت بطاقة البلد في السيرة'),
+            value: profile?.countryCardNoted ?? false,
+            onChanged: profile == null
+                ? null
+                : (v) => profiles.update((p) => p.countryCardNoted = v),
+          ),
           SwitchListTile(
             title: const Text('أنا عضو معتمد (إعاقة)'),
             value: profile?.accreditedDisability ?? false,
@@ -112,28 +135,6 @@ class SpecialNeedsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const Text(AppConstants.medicalDisclaimer),
-        ],
-      ),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('الإعدادات')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: const [
-          Text('الأذونات: شرح ثم موافقة ثم إدارة هنا. كاميرا وميكروفون وموقع عند الحاجة فقط.'),
-          SizedBox(height: 8),
-          Text(AppConstants.ownershipStatement),
-          Text(AppConstants.supportEmail),
-          SizedBox(height: 8),
-          Text(AppConstants.medicalDisclaimer),
         ],
       ),
     );

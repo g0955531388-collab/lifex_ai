@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "disclaimer_ar": "مرجع توعية فقط. ليس تشخيصاً.",
+    "disclaimer_ar": "مرجع توعية فقط. ليس تشخيصاً ولا موسوعة كل الأمراض.",
     "schemaVersion": "1.0.0"
   },
   "diseases": [
@@ -8,6 +8,9 @@
     {"id": "d002", "nameAr": "داء السكري من النوع الثاني", "nameEn": "Type 2 diabetes", "bodySystem": "endocrine"},
     {"id": "d003", "nameAr": "الربو", "nameEn": "Asthma", "bodySystem": "respiratory"},
     {"id": "d004", "nameAr": "فقر الدم", "nameEn": "Anemia", "bodySystem": "hematology"},
-    {"id": "d005", "nameAr": "التهاب الجلد التماسي", "nameEn": "Contact dermatitis", "bodySystem": "skin"}
+    {"id": "d005", "nameAr": "التهاب الجلد التماسي", "nameEn": "Contact dermatitis", "bodySystem": "skin"},
+    {"id": "d006", "nameAr": "قصور الغدة الدرقية", "nameEn": "Hypothyroidism", "bodySystem": "endocrine"},
+    {"id": "d007", "nameAr": "التهاب المفاصل", "nameEn": "Arthritis", "bodySystem": "musculoskeletal"},
+    {"id": "d008", "nameAr": "القلق", "nameEn": "Anxiety", "bodySystem": "mental"}
   ]
 }

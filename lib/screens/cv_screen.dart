@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../core/app_constants.dart';
 import '../features/profile/multi_profile_engine.dart';
+import 'meds_screen.dart';
 
 class CvScreen extends StatefulWidget {
   const CvScreen({super.key});
@@ -16,6 +17,8 @@ class _CvScreenState extends State<CvScreen> {
   late final TextEditingController _blood;
   late final TextEditingController _height;
   late final TextEditingController _weight;
+  late final TextEditingController _city;
+  late final TextEditingController _allergy;
 
   @override
   void initState() {
@@ -25,6 +28,8 @@ class _CvScreenState extends State<CvScreen> {
     _blood = TextEditingController(text: p?.bloodType ?? '');
     _height = TextEditingController(text: p?.heightCm?.toString() ?? '');
     _weight = TextEditingController(text: p?.weightKg?.toString() ?? '');
+    _city = TextEditingController(text: p?.city ?? '');
+    _allergy = TextEditingController();
   }
 
   @override
@@ -33,6 +38,8 @@ class _CvScreenState extends State<CvScreen> {
     _blood.dispose();
     _height.dispose();
     _weight.dispose();
+    _city.dispose();
+    _allergy.dispose();
     super.dispose();
   }
 
@@ -50,6 +57,7 @@ class _CvScreenState extends State<CvScreen> {
         children: [
           Text('الاسم الحقيقي: ${p.legalName}'),
           Text('المستعار: ${p.alias.isEmpty ? '—' : p.alias}'),
+          Text('الصورة: ${p.hasRequiredPhoto ? 'مرفقة' : 'ناقصة'}'),
           TextField(
             controller: _age,
             keyboardType: TextInputType.number,
@@ -69,6 +77,37 @@ class _CvScreenState extends State<CvScreen> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'الوزن كغ'),
           ),
+          TextField(
+            controller: _city,
+            decoration: const InputDecoration(labelText: 'المدينة'),
+          ),
+          SwitchListTile(
+            title: const Text('حمل على هذا الملف'),
+            value: p.pregnant,
+            onChanged: (v) => controller.update((x) => x.pregnant = v),
+          ),
+          TextField(
+            controller: _allergy,
+            decoration: const InputDecoration(labelText: 'إضافة حساسية'),
+          ),
+          OutlinedButton(
+            onPressed: () async {
+              final text = _allergy.text.trim();
+              if (text.isEmpty) return;
+              await controller.update((x) {
+                if (!x.allergies.contains(text)) {
+                  x.allergies.add(text);
+                }
+              });
+              _allergy.clear();
+            },
+            child: const Text('حفظ الحساسية'),
+          ),
+          Text(
+            p.allergies.isEmpty
+                ? 'لا حساسيات مسجّلة'
+                : 'حساسيات: ${p.allergies.join('، ')}',
+          ),
           const SizedBox(height: 8),
           const Text(AppConstants.medicalDisclaimer),
           FilledButton(
@@ -78,6 +117,7 @@ class _CvScreenState extends State<CvScreen> {
                 profile.bloodType = _blood.text.trim();
                 profile.heightCm = double.tryParse(_height.text);
                 profile.weightKg = double.tryParse(_weight.text);
+                profile.city = _city.text.trim();
               });
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -86,6 +126,14 @@ class _CvScreenState extends State<CvScreen> {
               }
             },
             child: const Text('حفظ'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const MedsScreen()),
+              );
+            },
+            child: const Text('جدول الدواء لهذا الملف'),
           ),
         ],
       ),
