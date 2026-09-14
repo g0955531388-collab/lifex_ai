@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "disclaimer_ar": "مرجع توعية فقط. ليس تشخيصاً.",
+    "schemaVersion": "1.0.0"
+  },
+  "diseases": [
+    {"id": "d001", "nameAr": "ارتفاع ضغط الدم", "nameEn": "Hypertension", "bodySystem": "cardiovascular"},
+    {"id": "d002", "nameAr": "داء السكري من النوع الثاني", "nameEn": "Type 2 diabetes", "bodySystem": "endocrine"},
+    {"id": "d003", "nameAr": "الربو", "nameEn": "Asthma", "bodySystem": "respiratory"},
+    {"id": "d004", "nameAr": "فقر الدم", "nameEn": "Anemia", "bodySystem": "hematology"},
+    {"id": "d005", "nameAr": "التهاب الجلد التماسي", "nameEn": "Contact dermatitis", "bodySystem": "skin"}
+  ]
+}

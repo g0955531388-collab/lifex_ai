@@ -1,0 +1,10 @@
+{
+  "_meta": {
+    "disclaimer_ar": "قيم مرجعية عامة. التفسير للطبيب فقط.",
+    "schemaVersion": "1.0.0"
+  },
+  "tests": [
+    {"id": "t001", "nameAr": "تعداد الدم الكامل", "nameEn": "CBC"},
+    {"id": "t002", "nameAr": "سكر الدم الصائم", "nameEn": "Fasting glucose"}
+  ]
+}

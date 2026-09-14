@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "disclaimer_ar": "وجود عرض لا يعني الإصابة. للتوعية فقط.",
+    "schemaVersion": "1.0.0"
+  },
+  "symptoms": [
+    {"id": "s001", "nameAr": "صداع", "urgencyDefault": "low"},
+    {"id": "s006", "nameAr": "ضيق تنفس", "urgencyDefault": "high"},
+    {"id": "s008", "nameAr": "ألم في الصدر", "urgencyDefault": "critical"}
+  ]
+}

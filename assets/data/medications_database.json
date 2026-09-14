@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "disclaimer_ar": "لا جرعات شخصية. اتبع الطبيب ونشرة الدواء.",
+    "schemaVersion": "1.0.0"
+  },
+  "medications": [
+    {"id": "m001", "nameAr": "باراسيتامول", "nameEn": "Paracetamol", "requiresPrescription": false},
+    {"id": "m002", "nameAr": "إيبوبروفين", "nameEn": "Ibuprofen", "requiresPrescription": false},
+    {"id": "m003", "nameAr": "ميتفورمين", "nameEn": "Metformin", "requiresPrescription": true}
+  ]
+}
