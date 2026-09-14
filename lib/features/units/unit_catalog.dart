@@ -20,6 +20,30 @@ const List<CareUnit> kCareUnits = [
     route: '/cv',
   ),
   CareUnit(
+    id: 'meds',
+    titleAr: 'الأدوية',
+    subtitleAr: 'جدول الوصفة · نطق الاسم الحقيقي',
+    route: '/meds',
+  ),
+  CareUnit(
+    id: 'ai',
+    titleAr: 'المساعد المحلي',
+    subtitleAr: 'سيرة + JSON · الويب بأمرك فقط',
+    route: '/ai',
+  ),
+  CareUnit(
+    id: 'chat',
+    titleAr: 'محادثة Lifex',
+    subtitleAr: 'تقارير وملفات كبيرة',
+    route: '/chat',
+  ),
+  CareUnit(
+    id: 'family',
+    titleAr: 'العائلة',
+    subtitleAr: 'ملفات مرتبطة · بلا دمج',
+    route: '/family',
+  ),
+  CareUnit(
     id: 'survey',
     titleAr: 'الاستبيان الصحي',
     subtitleAr: 'مسودة للطبيب لا تشخيصاً',

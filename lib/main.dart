@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app_constants.dart';
+import 'core/care_store.dart';
+import 'core/local_knowledge.dart';
 import 'core/trial_manager.dart';
 import 'features/auth/auth_controller.dart';
 import 'features/profile/multi_profile_engine.dart';
@@ -15,11 +17,16 @@ Future<void> main() async {
   final profiles = MultiProfileEngine(prefs);
   await profiles.load();
   final auth = AuthController(prefs)..load();
+  final care = CareStore(prefs);
+  await care.load();
+  final knowledge = await LocalKnowledge.load();
   runApp(
     LifexApp(
       prefs: prefs,
       profiles: profiles,
       auth: auth,
+      care: care,
+      knowledge: knowledge,
     ),
   );
 }
@@ -30,17 +37,23 @@ class LifexApp extends StatelessWidget {
     required this.prefs,
     required this.profiles,
     required this.auth,
+    required this.care,
+    required this.knowledge,
   });
 
   final SharedPreferences prefs;
   final MultiProfileEngine profiles;
   final AuthController auth;
+  final CareStore care;
+  final LocalKnowledge knowledge;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider<TrialManager>.value(value: TrialManager(prefs)),
+        Provider<LocalKnowledge>.value(value: knowledge),
+        ChangeNotifierProvider<CareStore>.value(value: care),
         ChangeNotifierProvider<AuthController>.value(value: auth),
         ChangeNotifierProvider<ActiveProfileController>(
           create: (_) => ActiveProfileController(profiles),
@@ -75,4 +88,3 @@ class LifexApp extends StatelessWidget {
     );
   }
 }
-

@@ -84,6 +84,34 @@ class MultiProfileEngine {
     await _prefs.setString(_keyActive, profileId);
   }
 
+  Future<HealthProfile> createLinked({
+    required String legalName,
+    String phone = '',
+    String email = '',
+  }) async {
+    if (_profiles.length >= AppConstants.maxHealthProfilesDefault) {
+      throw StateError('بلغ الحد الأقصى للملفات الصحية.');
+    }
+    if (legalName.trim().isEmpty) {
+      throw StateError('الاسم الحقيقي إلزامي للملف الجديد.');
+    }
+    final id = 'p${DateTime.now().millisecondsSinceEpoch}';
+    final profile = HealthProfile(
+      profileId: id,
+      legalName: legalName.trim(),
+      phone: phone,
+      email: email,
+    );
+    _profiles[id] = profile;
+    await _persist();
+    HealthEventManager.instance.emitQuick(
+      HealthEventType.profileUpdated,
+      sourceModule: 'multi_profile_engine',
+      profileId: id,
+    );
+    return profile;
+  }
+
   Future<void> save(HealthProfile profile) async {
     _profiles[profile.profileId] = profile;
     await _persist();
@@ -111,6 +139,7 @@ class ActiveProfileController extends ChangeNotifier {
 
   HealthProfile? get profile => engine.active;
   bool get hasAnyProfile => engine.hasAnyProfile;
+  List<HealthProfile> get all => engine.all;
 
   Future<void> reload() async {
     await engine.load();
@@ -136,5 +165,24 @@ class ActiveProfileController extends ChangeNotifier {
     edit(current);
     await engine.save(current);
     notifyListeners();
+  }
+
+  Future<void> switchTo(String profileId) async {
+    await engine.switchTo(profileId);
+    notifyListeners();
+  }
+
+  Future<HealthProfile> createLinked({
+    required String legalName,
+    String phone = '',
+    String email = '',
+  }) async {
+    final created = await engine.createLinked(
+      legalName: legalName,
+      phone: phone,
+      email: email,
+    );
+    notifyListeners();
+    return created;
   }
 }

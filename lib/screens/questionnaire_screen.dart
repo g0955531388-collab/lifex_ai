@@ -34,7 +34,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           const Text(
-            'سؤال وجواب، تصوير منطقة، أو أوراق عبر الكاميرا بعد الموافقة. هذه مسودة للطبيب.',
+            'سؤال وجواب، تصوير منطقة، أو أوراق عبر الكاميرا بعد الموافقة. هذه مسودة للطبيب لا تشخيصاً.',
           ),
           TextField(
             controller: _region,

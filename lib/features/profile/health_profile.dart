@@ -16,8 +16,15 @@ class HealthProfile {
     this.chronicAccredited = false,
     this.bloodAlertsOptIn = false,
     this.maritalStatus = '',
+    this.city = '',
+    this.pregnant = false,
+    this.geneticsOptIn = false,
+    this.donationListed = false,
+    this.countryCardNoted = false,
+    List<String>? allergies,
     Map<String, String>? fields,
-  }) : fields = fields ?? {};
+  })  : allergies = allergies ?? [],
+        fields = fields ?? {};
 
   final String profileId;
   String legalName;
@@ -35,6 +42,12 @@ class HealthProfile {
   bool chronicAccredited;
   bool bloodAlertsOptIn;
   String maritalStatus;
+  String city;
+  bool pregnant;
+  bool geneticsOptIn;
+  bool donationListed;
+  bool countryCardNoted;
+  final List<String> allergies;
   final Map<String, String> fields;
 
   bool get hasRequiredPhoto =>
@@ -68,6 +81,12 @@ class HealthProfile {
         'chronicAccredited': chronicAccredited,
         'bloodAlertsOptIn': bloodAlertsOptIn,
         'maritalStatus': maritalStatus,
+        'city': city,
+        'pregnant': pregnant,
+        'geneticsOptIn': geneticsOptIn,
+        'donationListed': donationListed,
+        'countryCardNoted': countryCardNoted,
+        'allergies': allergies,
         'fields': fields,
       };
 
@@ -89,6 +108,12 @@ class HealthProfile {
       chronicAccredited: json['chronicAccredited'] as bool? ?? false,
       bloodAlertsOptIn: json['bloodAlertsOptIn'] as bool? ?? false,
       maritalStatus: json['maritalStatus'] as String? ?? '',
+      city: json['city'] as String? ?? '',
+      pregnant: json['pregnant'] as bool? ?? false,
+      geneticsOptIn: json['geneticsOptIn'] as bool? ?? false,
+      donationListed: json['donationListed'] as bool? ?? false,
+      countryCardNoted: json['countryCardNoted'] as bool? ?? false,
+      allergies: List<String>.from(json['allergies'] as List? ?? const []),
       fields: Map<String, String>.from(
         (json['fields'] as Map?)?.map(
               (k, v) => MapEntry(k.toString(), v.toString()),
