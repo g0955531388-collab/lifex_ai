@@ -86,6 +86,34 @@ class _MedsScreenState extends State<MedsScreen> {
             },
             child: const Text('حفظ الجرعة في هذا الملف'),
           ),
+          OutlinedButton(
+            onPressed: () async {
+              final due = bag.medications.where(
+                (m) => _engine.isDueAt(m.timesAr, DateTime.now()),
+              );
+              if (due.isEmpty) {
+                setState(() => _status = 'لا جرعة مستحقة حسب الساعة الحالية.');
+                return;
+              }
+              for (final med in due) {
+                final check = _engine.crossCheck(
+                  drugName: med.legalDrugName,
+                  profile: profile,
+                );
+                final spoken = check.mayTakeNow
+                    ? _engine.spokenDose(
+                        profile: profile,
+                        doseText: '${med.legalDrugName} ${med.doseText}',
+                      )
+                    : check.messageAr;
+                setState(() => _status = spoken);
+                try {
+                  await FlutterTts().speak(spoken);
+                } catch (_) {}
+              }
+            },
+            child: const Text('نطق الجرعات المستحقة الآن'),
+          ),
           if (_status.isNotEmpty) Text(_status),
           const Divider(),
           for (final med in bag.medications)

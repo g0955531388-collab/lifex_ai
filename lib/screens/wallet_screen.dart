@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/app_constants.dart';
+import '../core/outbound.dart';
 import '../features/finance/billing.dart';
 import '../features/profile/multi_profile_engine.dart';
 
@@ -29,6 +30,13 @@ class WalletScreen extends StatelessWidget {
             Text(exemption.reasonAr ?? '')
           else
             const Text('15 يوماً كاملة ثم شهر مخفّض ثم اشتراك. الطوارئ تبقى.'),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: exemption.isExempt
+                ? null
+                : () => Outbound.playStore(AppConstants.androidApplicationId),
+            child: const Text('الاشتراك عبر المتجر'),
+          ),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -24,6 +25,8 @@ class _DoctorPublicScreenState extends State<DoctorPublicScreen> {
   final _address = TextEditingController();
   final _phone = TextEditingController();
   final _km = TextEditingController(text: '1');
+  final _lat = TextEditingController();
+  final _lng = TextEditingController();
 
   @override
   void dispose() {
@@ -32,6 +35,8 @@ class _DoctorPublicScreenState extends State<DoctorPublicScreen> {
     _address.dispose();
     _phone.dispose();
     _km.dispose();
+    _lat.dispose();
+    _lng.dispose();
     super.dispose();
   }
 
@@ -56,6 +61,53 @@ class _DoctorPublicScreenState extends State<DoctorPublicScreen> {
         children: [
           const Text(
             'الاختصاص ثم الأقرب فالأبعد. الصفحة العامة: اسم واختصاص وتواصل وعنوان وجدول. بلا أسماء مرضى.',
+          ),
+          OutlinedButton(
+            onPressed: () async {
+              final ok = await showDialog<bool>(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('إذن الموقع'),
+                  content: const Text(
+                    'لترتيب الأطباء من الأقرب فالأبعد. يُستخدم عند هذه الشاشة فقط.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx, false),
+                      child: const Text('رفض'),
+                    ),
+                    FilledButton(
+                      onPressed: () => Navigator.pop(ctx, true),
+                      child: const Text('موافق'),
+                    ),
+                  ],
+                ),
+              );
+              if (ok != true || !context.mounted) return;
+              try {
+                final pos = await Geolocator.getCurrentPosition();
+                await store.mutate(profile.profileId, (bag) {
+                  bag.lastLat = pos.latitude;
+                  bag.lastLng = pos.longitude;
+                  DoctorDirectory().applyUserLocation(
+                    bag.doctors,
+                    userLat: pos.latitude,
+                    userLng: pos.longitude,
+                  );
+                });
+              } catch (_) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'تعذر الموقع. أدخل المسافة أو إحداثيات العيادة يدوياً.',
+                      ),
+                    ),
+                  );
+                }
+              }
+            },
+            child: const Text('ترتيب حسب موقعي'),
           ),
           DropdownButton<String?>(
             value: _filterSpecialty,
@@ -180,6 +232,16 @@ class _DoctorPublicScreenState extends State<DoctorPublicScreen> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(labelText: 'المسافة كم من موقعك'),
           ),
+          TextField(
+            controller: _lat,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(labelText: 'خط العرض (اختياري)'),
+          ),
+          TextField(
+            controller: _lng,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(labelText: 'خط الطول (اختياري)'),
+          ),
           FilledButton(
             onPressed: () async {
               await store.mutate(profile.profileId, (bag) {
@@ -194,6 +256,8 @@ class _DoctorPublicScreenState extends State<DoctorPublicScreen> {
                     address: _address.text.trim(),
                     phone: _phone.text.trim(),
                     km: double.tryParse(_km.text) ?? 0,
+                    lat: double.tryParse(_lat.text),
+                    lng: double.tryParse(_lng.text),
                   ),
                 );
               });

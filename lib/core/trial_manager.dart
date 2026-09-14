@@ -36,3 +36,18 @@ class TrialManager {
 
   bool get emergencyAndBloodOnly => phase == TrialPhase.expired;
 }
+
+class SessionAccessPolicy {
+  const SessionAccessPolicy();
+
+  bool canOpenUnit(
+    String unitId, {
+    required bool expired,
+    required bool feeExempt,
+  }) {
+    if (!expired) return true;
+    if (unitId == 'blood' || unitId == 'wallet') return true;
+    if (unitId == 'radar' && feeExempt) return true;
+    return false;
+  }
+}

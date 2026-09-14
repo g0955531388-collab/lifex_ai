@@ -5,6 +5,6 @@ void main() {
   test('هوية التطبيق الرسمية', () {
     expect(AppConstants.packageName, 'lifex_ai');
     expect(AppConstants.supportEmail, 'g0955531388@gmail.com');
-    expect(AppConstants.appVersion, '0.2.0');
+    expect(AppConstants.appVersion, '0.3.0');
   });
 }

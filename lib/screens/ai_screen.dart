@@ -5,6 +5,7 @@ import '../core/app_constants.dart';
 import '../core/local_knowledge.dart';
 import '../features/ai/local_ai_gateway.dart';
 import '../features/profile/multi_profile_engine.dart';
+import '../widgets/voice_fill.dart';
 
 class AiScreen extends StatefulWidget {
   const AiScreen({super.key});
@@ -39,6 +40,13 @@ class _AiScreenState extends State<AiScreen> {
             controller: _q,
             maxLines: 3,
             decoration: const InputDecoration(labelText: 'سؤالك الصحي'),
+          ),
+          VoiceFillButton(
+            onText: (t) {
+              if (t.isEmpty) return;
+              _q.text = t;
+              setState(() {});
+            },
           ),
           FilledButton(
             onPressed: () {

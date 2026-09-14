@@ -56,4 +56,13 @@ class MedicationEngine {
   }) {
     return '${profile.displayNameForCare()}، حان موعد $doseText';
   }
+
+  bool isDueAt(List<String> timesAr, DateTime now) {
+    for (final raw in timesAr) {
+      final match = RegExp(r'(\d{1,2})').firstMatch(raw.trim());
+      if (match == null) continue;
+      if (int.tryParse(match.group(1)!) == now.hour) return true;
+    }
+    return false;
+  }
 }

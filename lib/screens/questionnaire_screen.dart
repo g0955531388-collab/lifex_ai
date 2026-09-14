@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import '../core/app_constants.dart';
 import '../features/profile/multi_profile_engine.dart';
 import '../features/reports/stamped_report.dart';
+import '../widgets/voice_fill.dart';
 
 class QuestionnaireScreen extends StatefulWidget {
   const QuestionnaireScreen({super.key});
@@ -44,6 +45,13 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
             controller: _notes,
             maxLines: 6,
             decoration: const InputDecoration(labelText: 'ما تصفه أو ما قرأته الكاميرا'),
+          ),
+          VoiceFillButton(
+            onText: (t) {
+              if (t.isEmpty) return;
+              _notes.text = _notes.text.isEmpty ? t : '${_notes.text} $t';
+              setState(() {});
+            },
           ),
           const SizedBox(height: 8),
           FilledButton(

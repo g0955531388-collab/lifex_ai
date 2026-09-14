@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../core/app_constants.dart';
 import '../features/profile/multi_profile_engine.dart';
+import '../widgets/voice_fill.dart';
 import 'meds_screen.dart';
 
 class CvScreen extends StatefulWidget {
@@ -89,6 +90,13 @@ class _CvScreenState extends State<CvScreen> {
           TextField(
             controller: _allergy,
             decoration: const InputDecoration(labelText: 'إضافة حساسية'),
+          ),
+          VoiceFillButton(
+            onText: (t) {
+              if (t.isEmpty) return;
+              _allergy.text = t;
+              setState(() {});
+            },
           ),
           OutlinedButton(
             onPressed: () async {
