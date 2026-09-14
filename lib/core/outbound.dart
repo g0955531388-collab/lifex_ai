@@ -22,4 +22,20 @@ class Outbound {
     );
     return launchUrl(uri, mode: LaunchMode.externalApplication);
   }
+
+  static Future<bool> email(String address, String subject, String body) {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: address.trim(),
+      queryParameters: {'subject': subject, 'body': body},
+    );
+    return launchUrl(uri);
+  }
+
+  static Future<bool> playStore(String applicationId) {
+    final uri = Uri.parse(
+      'https://play.google.com/store/apps/details?id=$applicationId',
+    );
+    return launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
 }

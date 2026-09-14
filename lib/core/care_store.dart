@@ -106,6 +106,8 @@ class SavedDoctor {
     this.address = '',
     this.phone = '',
     this.km = 0,
+    this.lat,
+    this.lng,
     this.accredited = false,
     this.following = false,
   });
@@ -117,6 +119,8 @@ class SavedDoctor {
   String address;
   String phone;
   double km;
+  double? lat;
+  double? lng;
   bool accredited;
   bool following;
 
@@ -128,6 +132,8 @@ class SavedDoctor {
         'address': address,
         'phone': phone,
         'km': km,
+        'lat': lat,
+        'lng': lng,
         'accredited': accredited,
         'following': following,
       };
@@ -141,6 +147,8 @@ class SavedDoctor {
       address: json['address'] as String? ?? '',
       phone: json['phone'] as String? ?? '',
       km: (json['km'] as num?)?.toDouble() ?? 0,
+      lat: (json['lat'] as num?)?.toDouble(),
+      lng: (json['lng'] as num?)?.toDouble(),
       accredited: json['accredited'] as bool? ?? false,
       following: json['following'] as bool? ?? false,
     );
@@ -261,6 +269,8 @@ class ProfileCareBag {
     this.radarCalibrationMeters = 1,
     this.stepLengthMeters = 0.7,
     this.lastKnownCity = '',
+    this.lastLat,
+    this.lastLng,
   })  : medications = medications ?? [],
         dentalNotes = dentalNotes ?? {},
         orders = orders ?? [],
@@ -290,6 +300,8 @@ class ProfileCareBag {
   double radarCalibrationMeters;
   double stepLengthMeters;
   String lastKnownCity;
+  double? lastLat;
+  double? lastLng;
 
   Map<String, dynamic> toJson() => {
         'medications': medications.map((e) => e.toJson()).toList(),
@@ -310,6 +322,8 @@ class ProfileCareBag {
         'radarCalibrationMeters': radarCalibrationMeters,
         'stepLengthMeters': stepLengthMeters,
         'lastKnownCity': lastKnownCity,
+        'lastLat': lastLat,
+        'lastLng': lastLng,
       };
 
   factory ProfileCareBag.fromJson(Map<String, dynamic> json) {
@@ -353,6 +367,8 @@ class ProfileCareBag {
           (json['radarCalibrationMeters'] as num?)?.toDouble() ?? 1,
       stepLengthMeters: (json['stepLengthMeters'] as num?)?.toDouble() ?? 0.7,
       lastKnownCity: json['lastKnownCity'] as String? ?? '',
+      lastLat: (json['lastLat'] as num?)?.toDouble(),
+      lastLng: (json['lastLng'] as num?)?.toDouble(),
     );
   }
 }

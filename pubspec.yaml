@@ -1,7 +1,7 @@
 name: lifex_ai
 description: Lifex-AI Global Health Network — شبكة صحية ذكية. تحليل وإرشاد، ليست بديلاً عن الطبيب ولا تصف دواء.
 publish_to: 'none'
-version: 0.2.0+2
+version: 0.3.0+3
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -20,6 +20,8 @@ dependencies:
   url_launcher: ^6.3.0
   torch_light: ^1.1.0
   flutter_tts: ^4.0.2
+  speech_to_text: ^6.6.2
+  geolocator: ^11.1.0
 
 dev_dependencies:
   flutter_test:

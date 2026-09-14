@@ -112,6 +112,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Text(AppConstants.ownershipStatement),
           const Text(AppConstants.supportEmail),
           Text('الإصدار ${AppConstants.appVersion}'),
+          Text('الحزمة ${AppConstants.androidApplicationId}'),
+          const Text(
+            'النسخة الرسمية من المتجر. لا قفل إلغاء التثبيت ولا قراءة كل التطبيقات. وكيل السلامة لا يقرأ المحتوى الطبي.',
+          ),
           const SizedBox(height: 8),
           const Text(AppConstants.medicalDisclaimer),
         ],

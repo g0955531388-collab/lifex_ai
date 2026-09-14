@@ -32,6 +32,21 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   void _open(BuildContext context, CareUnit unit) {
+    final trial = context.read<TrialManager>();
+    final profile = context.read<ActiveProfileController>().profile;
+    final allowed = const SessionAccessPolicy().canOpenUnit(
+      unit.id,
+      expired: trial.emergencyAndBloodOnly,
+      feeExempt: profile?.feeExempt ?? false,
+    );
+    if (!allowed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('انتهت التجربة: الطوارئ والدم الاختياري والمحفظة فقط حتى الاشتراك.'),
+        ),
+      );
+      return;
+    }
     final Widget page = switch (unit.id) {
       'cv' => const CvScreen(),
       'meds' => const MedsScreen(),

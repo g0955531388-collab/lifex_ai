@@ -5,7 +5,8 @@ class AppConstants {
 
   static const String appName = 'Lifex-AI';
   static const String packageName = 'lifex_ai';
-  static const String appVersion = '0.2.0';
+  static const String appVersion = '0.3.0';
+  static const String androidApplicationId = 'com.lifex_ai';
 
   static const String founder = 'غازي سليم بكفلاوي';
   static const String assistant = 'الرباب';

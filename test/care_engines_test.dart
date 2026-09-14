@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifex_ai/core/care_store.dart';
 import 'package:lifex_ai/core/local_knowledge.dart';
+import 'package:lifex_ai/core/trial_manager.dart';
 import 'package:lifex_ai/features/ai/local_ai_gateway.dart';
 import 'package:lifex_ai/features/dental/dental_chart.dart';
 import 'package:lifex_ai/features/doctors/doctor_directory.dart';
@@ -106,5 +107,49 @@ void main() {
     expect(p.pinMatches('1234', '1234'), isTrue);
     expect(p.nearbyActionAr(), contains('بلا تصوير'));
     expect(LostPhonePolicy.farSmsKeyword, 'أين جوالي');
+  });
+
+  test('بعد انتهاء التجربة الدم والمحفظة فقط والرادار للمعتمد', () {
+    const policy = SessionAccessPolicy();
+    expect(
+      policy.canOpenUnit('cv', expired: true, feeExempt: false),
+      isFalse,
+    );
+    expect(
+      policy.canOpenUnit('blood', expired: true, feeExempt: false),
+      isTrue,
+    );
+    expect(
+      policy.canOpenUnit('radar', expired: true, feeExempt: true),
+      isTrue,
+    );
+  });
+
+  test('المسافة الأقرب أولاً بالإحداثيات', () {
+    const geo = GeoDistance();
+    final near = geo.kmBetween(
+      lat1: 21.5,
+      lon1: 39.2,
+      lat2: 21.51,
+      lon2: 39.21,
+    );
+    final far = geo.kmBetween(
+      lat1: 21.5,
+      lon1: 39.2,
+      lat2: 24.7,
+      lon2: 46.7,
+    );
+    expect(near, lessThan(far));
+  });
+
+  test('جرعة مستحقة حسب الساعة', () {
+    expect(
+      MedicationEngine().isDueAt(['08:00', '20:00'], DateTime(2026, 1, 1, 8)),
+      isTrue,
+    );
+    expect(
+      MedicationEngine().isDueAt(['08:00'], DateTime(2026, 1, 1, 9)),
+      isFalse,
+    );
   });
 }
