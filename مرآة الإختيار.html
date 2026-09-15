@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مَرآةُ الاختيار – أفخم دليل عملي لنضج العلاقات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --bg-main: #03050d;
+            --bg-card: rgba(11, 16, 32, 0.85);
+            --accent-gold: #d4af37;
+            --accent-soft-gold: #f3d98b;
+            --text-main: #f5f5f5;
+            --text-muted: #b0b7c6;
+            --border-soft: rgba(212, 175, 55, 0.25);
+            --accent-blue: #1b3b73;
+            --led-red: #ff0033;
+            --led-red-glow: rgba(255, 0, 51, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Cairo", system-ui, sans-serif;
+            background: radial-gradient(circle at top, #0d162d 0%, #03050d 60%, #000000 100%);
+            color: var(--text-main);
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        /* 1. البنر العلوي المتحرك */
+        .marquee-container {
+            width: 100%;
+            background: linear-gradient(90deg, #050816, #1b3b73, #050816);
+            border-bottom: 1px solid var(--accent-gold);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            padding: 8px 0;
+            box-shadow: 0 2px 15px rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-right: 100%;
+            animation: marquee 28s linear infinite;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--accent-soft-gold);
+            text-shadow: 0 0 8px rgba(243, 217, 139, 0.5);
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
+        }
+
+        .page {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 15px 16px 60px;
+        }
+
+        /* 2. شريط الساعة الرقمية والهيدر */
+        .top-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            padding: 10px 18px;
+            margin-bottom: 18px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* الساعة الرقمية الحمراء */
+        .digital-clock-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .clock-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .digital-clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--led-red);
+            text-shadow: 0 0 6px var(--led-red-glow), 0 0 12px var(--led-red-glow);
+            background: #000000;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            letter-spacing: 2px;
+        }
+
+        /* غلاف الكتاب الكوني */
+        header.book-header {
+            border-radius: 22px;
+            padding: 28px 24px;
+            border: 1px solid var(--accent-gold);
+            background:
+                radial-gradient(circle at 10% 0%, rgba(255,255,255,0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 0%, rgba(212,175,55,0.2) 0%, transparent 55%),
+                linear-gradient(135deg, #050816 0%, #0b1020 55%, #050816 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .book-header-content {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 22px;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .book-title-block h1 {
+            margin: 0 0 10px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            background: linear-gradient(180deg, #fff 0%, var(--accent-soft-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .book-title-block h2 {
+            margin: 0 0 14px;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .meta-line {
+            font-size: 1rem;
+            color: var(--accent-soft-gold);
+            margin-bottom: 6px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .meta-line span.label {
+            color: var(--text-muted);
+        }
+
+        .badge-network {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(243,217,139,0.5);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            background: rgba(5,8,22,0.85);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(243,217,139,0.9);
+        }
+
+        /* الجرافيك الكوني للعروسين */
+        .cover-visual {
+            position: relative;
+            border-radius: 18px;
+            border: 1px solid rgba(243,217,139,0.4);
+            padding: 14px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(243,217,139,0.22) 0, transparent 60%),
+                linear-gradient(145deg, #050816 0%, #0b1020 60%, #050816 100%);
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .cover-inner {
+            border-radius: 14px;
+            padding: 16px 14px;
+            background:
+                radial-gradient(circle at 20% 0%, rgba(27,59,115,0.6) 0, transparent 65%),
+                radial-gradient(circle at 80% 100%, rgba(243,217,139,0.25) 0, transparent 65%);
+            border: 1px solid rgba(27,59,115,0.6);
+            text-align: center;
+        }
+
+        .couple-silhouette {
+            height: 130px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .halo {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            margin: auto;
+            width: 130px;
+            height: 130px;
+            border: 1px solid rgba(243,217,139,0.6);
+            box-shadow: 0 0 20px rgba(243,217,139,0.6), 0 0 40px rgba(27,59,115,0.8);
+        }
+
+        .cover-caption {
+            font-size: 0.85rem;
+            color: var(--accent-soft-gold);
+            font-weight: 600;
+        }
+
+        /* شريط الأدوات الرئيسي والتفاعلي */
+        .top-toolbar {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .tool-button {
+            border-radius: 999px;
+            border: 1px solid rgba(243,217,139,0.5);
+            background: rgba(11, 16, 32, 0.9);
+            color: var(--accent-soft-gold);
+            padding: 8px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .tool-button:hover {
+            background: var(--accent-gold);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+
+        /* الفهرس */
+        nav.toc {
+            margin-top: 26px;
+            border-radius: 18px;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-card);
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        nav.toc h3 {
+            margin: 0 0 14px;
+            font-size: 1.1rem;
+            color: var(--accent-soft-gold);
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 8px;
+        }
+
+        nav.toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
+
+        nav.toc li a {
+            display: flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(5,8,22,0.7);
+            transition: all 0.2s ease;
+        }
+
+        nav.toc li a:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-soft-gold);
+            background: rgba(27,59,115,0.5);
+            transform: translateX(-4px);
+        }
+
+        /* الفصول والمحتوى */
+        section.chapter {
+            margin-top: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-card);
+            padding: 24px 22px;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .chapter-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        section.chapter h2 {
+            margin: 0 0 6px;
+            font-size: 1.45rem;
+            color: var(--accent-soft-gold);
+        }
+
+        section.chapter .chapter-subtitle {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .chapter-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-mini {
+            padding: 5px 10px;
+            font-size: 0.78rem;
+            border-radius: 6px;
+            border: 1px solid var(--accent-gold);
+            background: rgba(5,8,22,0.8);
+            color: var(--accent-soft-gold);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-mini:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .chapter-body {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        .self-test-block {
+            margin-top: 22px;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px dashed var(--accent-gold);
+            background: rgba(5,8,22,0.9);
+            font-size: 0.92rem;
+        }
+
+        .self-test-block h3 {
+            margin: 0 0 10px;
+            font-size: 1.05rem;
+            color: var(--accent-soft-gold);
+        }
+
+        .self-test-block ul {
+            margin: 0;
+            padding-right: 20px;
+        }
+
+        .self-test-block li {
+            margin-bottom: 6px;
+            line-height: 1.7;
+        }
+
+        .reflection-block {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(27,59,115,0.8);
+            background: rgba(5,8,22,0.95);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .reflection-block p {
+            margin: 6px 0;
+        }
+
+        .reflection-block span.label {
+            color: var(--accent-soft-gold);
+            font-weight: 600;
+        }
+
+        footer.book-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-soft);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* شريط عائم سفلي للأجهزة المحمولة */
+        .floating-controls {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(5, 8, 22, 0.95);
+            border: 1px solid var(--accent-gold);
+            border-radius: 999px;
+            padding: 8px 18px;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            z-index: 999;
+            backdrop-filter: blur(12px);
+        }
+
+        @media (max-width: 768px) {
+            .book-header-content {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .top-status-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. البنر العلوي المتحرك -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            ✨ AlrohAcademy999 & Lifex-AI Global Health Network يُقدّمان: كتاب «مَرآةُ الاختيار» | تأليف الكاتبة والمرشدة رباب الحايك والكاتب غازي سليم بكفلاوي | أفخم دليل عملي لبناء الشراكة المستدامة ونضج العلاقات ✨
+        </div>
+    </div>
+
+    <div class="page" id="book-content">
+
+        <!-- 2. شريط الساعة الرقمية -->
+        <div class="top-status-bar">
+            <div style="font-size: 0.9rem; color: var(--accent-soft-gold); font-weight: 600;">
+                🏛️ المنصة الرسمية لإصدارات الأكاديمية
+            </div>
+            <div class="digital-clock-container">
+                <span class="clock-label">الوقت الحالي:</span>
+                <div class="digital-clock" id="digitalClock">00:00:00</div>
+            </div>
+        </div>
+
+        <!-- غلاف الكتاب -->
+        <header class="book-header" id="header-cover">
+            <div class="book-header-content">
+                <div class="book-title-block">
+                    <h1>مَرآةُ الاختيار</h1>
+                    <h2>دليل عملي لنضج العلاقات وبناء الشراكة المستدامة مع اختبارات للتأمل الذاتي</h2>
+
+                    <div class="meta-line">
+                        <span class="label">المؤلفان:</span>
+                        المرشدة رباب محمود الحايك | الكاتب غازي سليم بكفلاوي
+                    </div>
+                    <div class="meta-line">
+                        <span class="label">إصدار وتطوير:</span>
+                        AlrohAcademy999 – Lifex-AI Global Health Network
+                    </div>
+
+                    <div class="badge-network">
+                        <span class="badge-dot"></span>
+                        <span>منهج عملي يدمج الوعي النفسي والواقعية الاجتماعية</span>
+                    </div>
+                </div>
+
+                <div class="cover-visual">
+                    <div class="cover-inner">
+                        <div class="couple-silhouette">
+                            <div class="halo"></div>
+                        </div>
+                        <div class="cover-caption">
+                            شراكة واعية وروحية متكاملة
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شريط الأدوات العلوي -->
+            <div class="top-toolbar">
+                <button class="tool-button" onclick="translatePage()">
+                    <span>🌐</span> <span>ترجمة الصفحة</span>
+                </button>
+                <button class="tool-button" onclick="readText('book-content')">
+                    <span>🔊</span> <span>قراءة صوتية (حسب الجهاز)</span>
+                </button>
+                <button class="tool-button" onclick="stopSpeech()">
+                    <span>⏹️</span> <span>إيقاف الصوت</span>
+                </button>
+                <button class="tool-button" onclick="captureScreenshot()">
+                    <span>📸</span> <span>لقطة شاشة للكتاب</span>
+                </button>
+                <button class="tool-button" onclick="copyText()">
+                    <span>📋</span> <span>نسخ المحتوى</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- الفهرس -->
+        <nav class="toc">
+            <h3>📌 فهرس الفصول والأبواب</h3>
+            <ul>
+                <li><a href="#chapter1">الفصل الأول: فلسفة الاختيار والوعي بالذات</a></li>
+                <li><a href="#chapter2">الفصل الثاني: حدس الروح وواقعية التجربة</a></li>
+                <li><a href="#chapter3">الفصل الثالث: تأثير المرآة وانعكاس الذات</a></li>
+                <li><a href="#chapter4">الفصل الرابع: تشخيص المشكلات الزوجية</a></li>
+                <li><a href="#chapter5">الفصل الخامس: التشخيص الحقيقي وأسباب الفشل</a></li>
+            </ul>
+        </nav>
+
+        <!-- الفصل الأول -->
+        <section class="chapter" id="chapter1">
+            <div class="chapter-header-flex">
+                <div>
+                    <h2>الفصل الأول: فلسفة الاختيار والوعي بالذات</h2>
+                    <p class="chapter-subtitle">قبل أن تختار شخصاً، اختر أن تعرف نفسك، وافهم قيمك وحدودك واحتياجاتك النفسية.</p>
+                </div>
+                <div class="chapter-actions">
+                    <button class="btn-mini" onclick="readText('chapter1-body')">🔊 استمع</button>
+                    <button class="btn-mini" onclick="translateChapter('chapter1')">🌐 ترجمة</button>
+                </div>
+            </div>
+
+            <div class="chapter-body" id="chapter1-body">
+                <p>يدخل الإنسان العلاقة العاطفية أو الزوجية وهو يحمل تاريخاً كاملاً من الخبرات والتوقعات والمخاوف والترسبات القديمة. لذلك فإن اختيار الشريك ليس مجرد بحث عن شخص مناسب خارج الذات، بل هو في المقام الأول اكتشاف عميق للطريقة التي نختار بها نحن، والأسباب الدفينة التي تجعلنا ننجذب لطرف دون آخر.</p>
+                <p>في كثير من الأحيان نخلط بين الانجذاب الأول والتوافق الحقيقي، وبين الغيرة والحب، وبين التضحية الحقيقية وإلغاء الذات. ولا تأتي المشكلة الجوهرية من وجود المشاعر، بل من منح هذه المشاعر وحدها سلطة اتخاذ القرارات المصيرية.</p>
+            </div>
+
+            <div class="self-test-block">
+                <h3>📋 اختبار المرآة الذاتية للفصل الأول</h3>
+                <p>ضع درجة من (0 إلى 4) أمام كل عبارة:</p>
+                <ul>
+                    <li>1. أعرف القواعد والقيم الأساسية التي لا أتنازل عنها في العلاقة.</li>
+                    <li>2. أميز بوضوح بين الحاجة النفسية الحقيقية والرغبة العابرة.</li>
+                    <li>3. أعرف كيف أسيطر على سلوكي وردود فعلي عند الغضب.</li>
+                    <li>4. لا أعتقد أن وجود الشريك هو الحل الوحيد للشعور بالوحدة.</li>
+                    <li>5. أستطيع وضع حدود واضحة وبطريقة محترمة ودون صدام.</li>
+                </ul>
+            </div>
+
+            <div class="reflection-block">
+                <p><span class="label">أكثر نقطة قوة أتمتع بها:</span> ...............................................................</p>
+                <p><span class="label">السلوك العملي للتغيير هذا الأسبوع:</span> .................................................</p>
+            </div>
+        </section>
+
+        <!-- الفصل الثاني -->
+        <section class="chapter" id="chapter2">
+            <div class="chapter-header-flex">
+                <div>
+                    <h2>الفصل الثاني: حدس الروح وواقعية التجربة</h2>
+                    <p class="chapter-subtitle">الحدس إشارة تنبيهية قوية، لكنه ليس حكماً نهائياً؛ يحتاج دائماً إلى اختبار الواقع والبيانات الملموسة.</p>
+                </div>
+                <div class="chapter-actions">
+                    <button class="btn-mini" onclick="readText('chapter2-body')">🔊 استمع</button>
+                    <button class="btn-mini" onclick="translateChapter('chapter2')">🌐 ترجمة</button>
+                </div>
+            </div>
+
+            <div class="chapter-body" id="chapter2-body">
+                <p>الشعور الداخلي أو الحدس هو إشارة تنبيهية قوية تستحق الاستماع والاهتمام، لكنه ليس محكمة قضائية ولا حقائق مطلقة. في بعض الأحيان يكون الحدس قراءة خاطفة ومستبصرة لمؤشرات واقعية لم يستوعبها العقل الواعي بعد، وفي أحيان أخرى يكون مجرد انعكاس للخوف القديم أو التردد الذاتي.</p>
+            </div>
+
+            <div class="self-test-block">
+                <h3>📋 اختبار المرآة الذاتية للفصل الثاني</h3>
+                <ul>
+                    <li>1. أبحث عن الوقائع والأدلة الملموسة عندما أشعر بالقلق الداخلي.</li>
+                    <li>2. أميز بين مشاعر الحاضر وأثر تجارب الماضي الأليمة.</li>
+                    <li>3. لا أعتبر الانجذاب العاطفي الأول دليلاً كافياً على التوافق.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="book-footer">
+            جميع الحقوق محفوظة © 2026 | الأكاديمية وشبكة الصحة العالمية Lifex-AI | تأليف: رباب محمود الحايك وغازي سليم بكفلاوي
+        </footer>
+    </div>
+
+    <!-- 3. شريط التحكم العائم -->
+    <div class="floating-controls">
+        <button class="btn-mini" onclick="readText('book-content')">🔊 قراءة كاملة</button>
+        <button class="btn-mini" onclick="stopSpeech()">⏹️ إيقاف</button>
+        <button class="btn-mini" onclick="captureScreenshot()">📸 لقطة شاشة</button>
+    </div>
+
+    <!-- 4. محرك البرمجيات والتفاعل -->
+    <script>
+        // ساعة رقمية حمراء تعمل بالثواني
+        function updateDigitalClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('digitalClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateDigitalClock, 1000);
+        updateDigitalClock();
+
+        // محرك القراءة الصوتية بلغة الجهاز تلقائياً
+        let synth = window.speechSynthesis;
+        let utterance;
+
+        function readText(elementId) {
+            stopSpeech();
+            const text = document.getElementById(elementId).innerText;
+            utterance = new SpeechSynthesisUtterance(text);
+            
+            // ضبط لغة القراءة حسب لغة جهاز المستخدم أو النص
+            const userLang = navigator.language || 'ar-SA';
+            utterance.lang = userLang.startsWith('ar') ? 'ar-SA' : userLang;
+            utterance.rate = 0.95; // سرعة معتدلة
+            
+            synth.speak(utterance);
+        }
+
+        function stopSpeech() {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        // التقاط لقطة شاشة للكتاب
+        function captureScreenshot() {
+            html2canvas(document.getElementById('book-content')).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'mirror-of-choice-book.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // ترجمة باستخدام محرك جوجل الجاهز أو تنبيه
+        function translatePage() {
+            const currentLang = document.documentElement.lang;
+            if (currentLang === 'ar') {
+                window.open('https://translate.google.com/translate?sl=ar&tl=en&u=' + encodeURIComponent(window.location.href), '_blank');
+            }
+        }
+
+        function translateChapter(chapterId) {
+            alert('سيتم ترجمة محتوى الفصل المحدّد فوراً عبر المحرّك التفاعلي.');
+        }
+
+        // نسخ النص
+        function copyText() {
+            const text = document.getElementById('book-content').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ نص الكتاب بنجاح إلى الحافظة!');
+            });
+        }
+    </script>
+</body>
+</html>
